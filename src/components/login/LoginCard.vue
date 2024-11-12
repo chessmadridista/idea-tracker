@@ -1,10 +1,11 @@
 <script setup>
-import { useGeneralStore } from '@/stores'
+import { useGeneralStore, useUserStore } from '@/stores'
 import { inject, ref } from 'vue'
 import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const generalStore = useGeneralStore()
+const userStore = useUserStore()
 const form = ref(null)
 const username = ref('')
 const password = ref('')
@@ -26,6 +27,7 @@ function login() {
       axios.post(endPoint, formData)
       .then((response) => {
         console.log(response)
+        userStore.setUser(username.value)
         generalStore.setSnackbarMessage(response.data.message)
         generalStore.setSnackbarColor('success')
         router.push('/')
