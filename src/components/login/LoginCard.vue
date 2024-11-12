@@ -28,6 +28,7 @@ function login() {
       .then((response) => {
         console.log(response)
         userStore.setUser(username.value)
+        userStore.setUserLoggedIn()
         generalStore.setSnackbarMessage(response.data.message)
         generalStore.setSnackbarColor('success')
         router.push('/')
