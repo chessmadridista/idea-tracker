@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const generalStore = useGeneralStore()
+const form = ref(null)
 const username = ref('')
 const password = ref('')
 const router = useRouter();
@@ -18,24 +19,29 @@ function getFormData() {
 }
 
 function login() {
-  const endPoint = '/login'
-  const formData = getFormData()
-  axios
-    .post(endPoint, formData)
-    .then((response) => {
-      console.log(response)
-      generalStore.setSnackbarMessage(response.data.message)
-      generalStore.setSnackbarColor('success')
-      router.push('/')
-    })
-    .catch((error) => {
-      console.error(error)
-      generalStore.setSnackbarMessage(error.response.data.message)
-      generalStore.setSnackbarColor('error')
-    })
-    .finally(() => {
-      generalStore.showSnackbar()
-    })
+  form.value.validate().then((response) => {
+    if (response.valid) {
+      const endPoint = '/login'
+      const formData = getFormData()
+      axios.post(endPoint, formData)
+      .then((response) => {
+        console.log(response)
+        generalStore.setSnackbarMessage(response.data.message)
+        generalStore.setSnackbarColor('success')
+        router.push('/')
+      })
+      .catch((error) => {
+        console.error(error)
+        generalStore.setSnackbarMessage(error.response.data.message)
+        generalStore.setSnackbarColor('error')
+      })
+      .finally(() => {
+        generalStore.showSnackbar()
+      })
+    } else {
+      return
+    }
+  })
 }
 </script>
 <template>
@@ -45,16 +51,24 @@ function login() {
         <v-card class="pa-4">
           <v-card-title class="text-center">Login</v-card-title>
           <v-card-text>
-            <v-form>
-              <v-text-field density="compact" v-model="username" type="text" label="Username" />
-              <v-text-field density="compact" v-model="password" type="password" label="Password" />
+            <v-form ref="form" @submit.prevent="login">
+              <v-text-field 
+                density="compact" 
+                v-model="username" 
+                type="text" 
+                label="Username" 
+                :rules="[(v) => !!v || 'Username is required.']"
+              />
+              <v-text-field 
+                density="compact" 
+                v-model="password" 
+                type="password" 
+                label="Password" 
+                :rules="[(v) => !!v || 'Password is required.']"
+              />
+              <v-btn variant="elevated" color="primary" block type="submit">Login</v-btn>
             </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn variant="elevated" color="primary" block @click="login">Login</v-btn>
-          </v-card-actions>
-          <v-card-text>
-            <p class="text-center">Don't have an account? <router-link to="/signup">Sign up</router-link></p>
+            <p class="text-center mt-4">Don't have an account? <router-link to="/signup">Sign up</router-link></p>
           </v-card-text>
         </v-card>
       </v-col>

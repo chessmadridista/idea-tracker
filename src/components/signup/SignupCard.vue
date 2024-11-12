@@ -61,7 +61,6 @@ async function signup() {
                 type="email" 
                 label="Email" 
                 :rules="[(v) => !!v || 'Email is required.']"
-                required
               />
               <v-text-field 
                 density="compact" 
@@ -69,7 +68,6 @@ async function signup() {
                 type="text" 
                 label="Username" 
                 :rules="[(v) => !!v || 'Username is required.']"
-                required
               />
               <v-text-field 
                 density="compact" 
@@ -77,9 +75,8 @@ async function signup() {
                 type="password" 
                 label="Password" 
                 :rules="[(v) => !!v || 'Password is required.']"
-                required
               />
-              <v-btn variant="elevated" color="primary" block @click="signup">Signup</v-btn>
+              <v-btn variant="elevated" color="primary" block type="submit">Signup</v-btn>
             </v-form>
             <p class="text-center mt-4">Already have an account? <router-link to="/login">Login</router-link></p>
           </v-card-text>

@@ -12,7 +12,7 @@ function logout() {
     axios.post(endPoint)
         .then((response) => {
             console.log(response)
-            generalStore.setSnackbarMessage(response.data.message)
+            generalStore.setSnackbarMessage('You have been logged out successfully.')
             generalStore.setSnackbarColor('success')
             router.push('login')
         })
