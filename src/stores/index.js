@@ -1,4 +1,3 @@
-export { useSignupStore } from './signupStore'
-export { useLoginStore } from './loginStore'
+export { useUserStore } from './userStore'
 export { useGeneralStore } from './generalStore'
 export { useBucketListStore } from './bucketListStore'
