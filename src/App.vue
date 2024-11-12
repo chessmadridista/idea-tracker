@@ -32,10 +32,11 @@ function checkSession() {
     }
   })
   .catch(error => {
-    generalStore.setSnackbarMessage('You need to log in to view this resource.')
-    generalStore.setSnackbarColor('error')
-    generalStore.showSnackbar()
-    router.push('/login')
+    const currentRouteName = router.currentRoute.value.name
+
+    if (currentRouteName !== 'login' && currentRouteName !== 'signup') {
+      router.push('/login')
+    }
   })
 }
 
