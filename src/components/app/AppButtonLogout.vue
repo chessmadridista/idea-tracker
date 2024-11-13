@@ -1,18 +1,20 @@
 <script setup>
-import { useGeneralStore } from '@/stores';
+import { useGeneralStore, useUserStore } from '@/stores';
 import { inject } from 'vue';
 import { useRouter } from 'vue-router'
 
 const axios = inject('axios')
 const generalStore = useGeneralStore()
+const userStore = useUserStore()
 const router = useRouter()
 
 function logout() {
     const endPoint = '/logout'
     axios.post(endPoint)
         .then((response) => {
-            console.log(response)
-            generalStore.setSnackbarMessage(response.data.message)
+            userStore.setUser('')
+            userStore.setUserLoggedOut()
+            generalStore.setSnackbarMessage('You have been logged out successfully.')
             generalStore.setSnackbarColor('success')
             router.push('login')
         })

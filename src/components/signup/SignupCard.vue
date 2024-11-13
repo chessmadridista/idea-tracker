@@ -5,8 +5,7 @@ import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const generalStore = useGeneralStore()
-const firstName = ref('')
-const lastName = ref('')
+const form = ref(null)
 const email = ref('')
 const username = ref('')
 const password = ref('')
@@ -14,8 +13,6 @@ const router = useRouter()
 
 function getFormData() {
   const formData = new FormData()
-  formData.append('first_name', firstName.value)
-  formData.append('last_name', lastName.value)
   formData.append('email', email.value)
   formData.append('username', username.value)
   formData.append('password', password.value)
@@ -23,25 +20,31 @@ function getFormData() {
   return formData
 }
 
-function signup() {
-  const endPoint = '/signup'
-  const formData = getFormData()
-  axios
-    .post(endPoint, formData)
-    .then((response) => {
-      console.log(response)
-      generalStore.setSnackbarMessage(response.data.message)
-      generalStore.setSnackbarColor('success')
-      router.push('login')
-    })
-    .catch((error) => {
-      console.error(error)
-      generalStore.setSnackbarMessage(error.response.data.message)
-      generalStore.setSnackbarColor('error')
-    })
-    .finally(() => {
-      generalStore.showSnackbar()
-    })
+async function signup() {
+  form.value.validate().then((response) => {
+    if (response.valid) {
+      const endPoint = '/signup'
+      const formData = getFormData()
+      axios
+        .post(endPoint, formData)
+        .then((response) => {
+          console.log(response)
+          generalStore.setSnackbarMessage(response.data.message)
+          generalStore.setSnackbarColor('success')
+          router.push('login')
+        })
+        .catch((error) => {
+          console.error(error)
+          generalStore.setSnackbarMessage(error.response.data.message)
+          generalStore.setSnackbarColor('error')
+        })
+        .finally(() => {
+          generalStore.showSnackbar()
+        })
+    } else {
+      return
+    }
+  })
 }
 </script>
 <template>
@@ -51,17 +54,31 @@ function signup() {
         <v-card class="pa-4">
           <v-card-title class="text-center">Signup</v-card-title>
           <v-card-text>
-            <v-form>
-              <v-text-field density="compact" v-model="email" type="email" label="Email" />
-              <v-text-field density="compact" v-model="username" type="text" label="Username" />
-              <v-text-field density="compact" v-model="password" type="password" label="Password" />
+            <v-form ref="form" @submit.prevent="signup">
+              <v-text-field 
+                density="compact" 
+                v-model="email" 
+                type="email" 
+                label="Email*" 
+                :rules="[(v) => !!v || 'Email is required.']"
+              />
+              <v-text-field 
+                density="compact" 
+                v-model="username" 
+                type="text" 
+                label="Username*" 
+                :rules="[(v) => !!v || 'Username is required.']"
+              />
+              <v-text-field 
+                density="compact" 
+                v-model="password" 
+                type="password" 
+                label="Password*" 
+                :rules="[(v) => !!v || 'Password is required.']"
+              />
+              <v-btn variant="elevated" color="primary" block type="submit">Signup</v-btn>
             </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn variant="elevated" color="primary" block @click="signup">Signup</v-btn>
-          </v-card-actions>
-          <v-card-text>
-            <p class="text-center">Already have an account? <router-link to="/login">Login</router-link></p>
+            <p class="text-center mt-4">Already have an account? <router-link to="/login">Login</router-link></p>
           </v-card-text>
         </v-card>
       </v-col>
