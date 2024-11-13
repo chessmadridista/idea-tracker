@@ -3,7 +3,7 @@ import AppButtonLogout from './AppButtonLogout.vue'
 </script>
 <template>
     <v-app-bar app color="primary">
-        <v-app-bar-title>Idea Tracker</v-app-bar-title>
+        <v-app-bar-title>Idea Tracker for Indie Hackers</v-app-bar-title>
         <AppButtonLogout />
     </v-app-bar>
 </template>

@@ -1,23 +1,7 @@
 <script setup>
-import { inject, ref, onBeforeMount } from 'vue';
+import { useUserStore } from '@/stores';
 
-const axios = inject('axios')
-const partnerUsername = ref('')
-
-function getPartnerUsername() {
-    const endPoint = '/get-partner-username'
-    axios.post(endPoint)
-        .then(response => {
-            partnerUsername.value = response.data.partner_username
-        })
-        .catch(error => {
-            console.error(error);
-        })
-}
-
-onBeforeMount(() => {
-    getPartnerUsername()
-})
+const userStore = useUserStore()
 </script>
 <template>
     <v-container>
@@ -25,8 +9,7 @@ onBeforeMount(() => {
             <v-col>
                 <v-card>
                     <v-card-title class="text-center">
-                        <v-icon color="primary">mdi-bucket</v-icon> Your bucket lists with {{ partnerUsername }}
-                        <v-icon color="primary">mdi-bucket</v-icon>
+                        Welcome @{{ userStore.username }} 👋 
                     </v-card-title>
                 </v-card>
             </v-col>

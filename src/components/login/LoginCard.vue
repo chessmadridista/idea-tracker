@@ -59,14 +59,14 @@ function login() {
                 density="compact" 
                 v-model="username" 
                 type="text" 
-                label="Username" 
+                label="Username*" 
                 :rules="[(v) => !!v || 'Username is required.']"
               />
               <v-text-field 
                 density="compact" 
                 v-model="password" 
                 type="password" 
-                label="Password" 
+                label="Password*" 
                 :rules="[(v) => !!v || 'Password is required.']"
               />
               <v-btn variant="elevated" color="primary" block type="submit">Login</v-btn>
