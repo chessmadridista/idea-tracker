@@ -52,7 +52,7 @@ router.beforeEach((to, from, next) => {
         if (response.status === 200) {
           userStore.setUser(response.data.username)
           userStore.setUserLoggedIn()
-          next({ name: 'home' })
+          next()
         }
       })
       .catch(error => {
