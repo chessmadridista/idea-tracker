@@ -5,7 +5,6 @@ import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const router = useRouter()
-const idea = ref({})
 const generalStore = useGeneralStore()
 const ideaStore = useIdeaStore()
 
@@ -16,7 +15,9 @@ function getIdea() {
     formData.append('idea_id', idea_id)
     axios.post(endPoint, formData)
         .then(response => {
-            idea.value = response.data.idea
+            ideaStore.selectedIdeaName = response.data.idea.name
+            ideaStore.selectedIdeaDescription = response.data.idea.description
+            ideaStore.setSelectedIdea(response.data.idea)
         })
         .catch(error => {
             generalStore.setSnackbarMessage(error.response.data.message)
@@ -26,7 +27,7 @@ function getIdea() {
 }
 
 function editIdea() {
-    return
+    ideaStore.showEditIdeaDialog()
 }
 
 function deleteIdea() {
@@ -43,10 +44,10 @@ onBeforeMount(() => {
             <v-col>
                 <v-card>
                     <v-card-title>
-                        {{ idea.name }}
+                        {{ ideaStore.selectedIdeaName }}
                     </v-card-title>
                     <v-card-text>
-                        {{ idea.description }}
+                        {{ ideaStore.selectedIdeaDescription }}
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="error" variant="elevated" @click="deleteIdea">Delete</v-btn>
