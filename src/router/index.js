@@ -4,6 +4,7 @@ import { inject } from 'vue'
 import SignupView from '../views/SignupView.vue'
 import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
+import IdeaView from '@/views/IdeaView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -12,6 +13,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/idea/:id',
+      name: 'idea',
+      component: IdeaView
     },
     {
       path: '/signup',
@@ -46,7 +52,7 @@ router.beforeEach((to, from, next) => {
         if (response.status === 200) {
           userStore.setUser(response.data.username)
           userStore.setUserLoggedIn()
-          next({ name: 'home' })
+          next()
         }
       })
       .catch(error => {
