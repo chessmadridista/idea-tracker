@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export const useIdeaStore = defineStore('ideaStore', () => {
     const ideas = ref([]);
     const addNewIdeaDialogVisibility = ref(false);
+    const deleteIdeaDialogVisibility = ref(false)
 
     function setIdeas(updatedIdeas) {
         ideas.value = updatedIdeas
@@ -20,13 +21,24 @@ export const useIdeaStore = defineStore('ideaStore', () => {
     function hideAddNewIdeaDialog() {
         addNewIdeaDialogVisibility.value = false
     }
+    
+    function showDeleteIdeaDialog() {
+        deleteIdeaDialogVisibility.value = true
+    }
+
+    function hideDeleteIdeaDialog() {
+        deleteIdeaDialogVisibility.value = false
+    }
 
     return {
         ideas,
         addNewIdeaDialogVisibility,
+        deleteIdeaDialogVisibility,
         setIdeas,
         addIdea,
         showAddNewIdeaDialog,
         hideAddNewIdeaDialog,
+        showDeleteIdeaDialog,
+        hideDeleteIdeaDialog,
     }
 })

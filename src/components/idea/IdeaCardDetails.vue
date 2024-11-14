@@ -1,5 +1,5 @@
 <script setup>
-import { useGeneralStore } from '@/stores';
+import { useGeneralStore, useIdeaStore } from '@/stores';
 import { inject, onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -7,6 +7,7 @@ const axios = inject('axios')
 const router = useRouter()
 const idea = ref({})
 const generalStore = useGeneralStore()
+const ideaStore = useIdeaStore()
 
 function getIdea() {
     const endPoint = '/get-idea'
@@ -24,6 +25,14 @@ function getIdea() {
         })
 }
 
+function editIdea() {
+    return
+}
+
+function deleteIdea() {
+    ideaStore.showDeleteIdeaDialog()
+}
+
 onBeforeMount(() => {
     getIdea()
 })
@@ -39,6 +48,11 @@ onBeforeMount(() => {
                     <v-card-text>
                         {{ idea.description }}
                     </v-card-text>
+                    <v-card-actions>
+                        <v-btn color="error" variant="elevated" @click="deleteIdea">Delete</v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" variant="elevated" @click="editIdea">Edit</v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-col>
         </v-row>

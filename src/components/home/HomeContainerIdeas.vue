@@ -13,6 +13,10 @@ onBeforeMount(() => {
     })
     .catch(error => {
         console.error(error)
+
+        if (error.response.status === 404) {
+            ideaStore.setIdeas(error.response.data.ideas)
+        }
     })
 })
 </script>
