@@ -45,6 +45,7 @@ function addNewFeature() {
 
 function editFeature(feature) {
     featureStore.setEditedFeatureDescription(feature.description)
+    featureStore.setEditedFeature(feature)
     featureStore.showEditFeatureDialog()
 }
 
