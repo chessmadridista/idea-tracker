@@ -47,8 +47,6 @@ router.beforeEach((to, from, next) => {
       const endPoint = '/check-session'
       axios.get(endPoint)
       .then(response => {
-        console.log(response)
-
         if (response.status === 200) {
           userStore.setUser(response.data.username)
           userStore.setUserLoggedIn()
@@ -56,8 +54,6 @@ router.beforeEach((to, from, next) => {
         }
       })
       .catch(error => {
-        console.error(error.response.status)
-
         if (error.response.status === 401) {
           userStore.setUser('')
           userStore.setUserLoggedOut()

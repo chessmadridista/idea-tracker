@@ -19,7 +19,6 @@ function logout() {
             router.push('login')
         })
         .catch((error) => {
-            console.error(error)
             generalStore.setSnackbarMessage(error.response.data.message)
             generalStore.setSnackbarColor('error')
         })

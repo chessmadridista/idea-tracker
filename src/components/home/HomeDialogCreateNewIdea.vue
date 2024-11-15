@@ -18,7 +18,6 @@ function createNewTask() {
             formData.append('idea_description', description.value)
             axios.post(endPoint, formData)
                 .then(response => {
-                    console.log(response);
                     const idea = {
                         id: response.data.idea_id,
                         name: name.value,
@@ -32,7 +31,6 @@ function createNewTask() {
                     ideaStore.hideAddNewIdeaDialog()
                 })
                 .catch(error => {
-                    console.error(error);
                     generalStore.setSnackbarMessage(error)
                     generalStore.setSnackbarColor('error')
                 })
@@ -48,15 +46,15 @@ function createNewTask() {
 <template>
     <v-dialog v-model="ideaStore.addNewIdeaDialogVisibility">
         <v-card>
-            <v-card-title>Add new idea</v-card-title>
+            <v-card-title class="text-center">Add new idea</v-card-title>
             <v-card-text>
                 <v-form ref="form" @submit.prevent="createNewTask">
                     <v-text-field 
-                        label="Name*" 
+                        label="What is your app idea?*" 
                         v-model="name" 
-                        :rules="[v => !!v || 'Name is required']"
+                        :rules="[v => !!v || 'This field is required.']"
                     />
-                    <v-text-field v-model="description" label="Description" />
+                    <v-text-field v-model="description" label="Describe the idea in more detail" />
                     <v-btn type="submit" block color="primary" prepend-icon="mdi-check">
                         Add this idea
                     </v-btn>
