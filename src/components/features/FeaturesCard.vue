@@ -6,7 +6,6 @@ import { useRouter } from 'vue-router';
 const axios = inject('axios')
 const featureStore = useFeatureStore()
 const generalStore = useGeneralStore()
-const features = ref([])
 const newFeatureInputFieldVisibility = ref(false)
 const router = useRouter()
 const form = ref(null)
@@ -28,7 +27,7 @@ function addNewFeature() {
                     idea_id: ideaId,
                     description: newFeature.value,
                 }
-                features.value.push(feature)
+                featureStore.addFeature(feature)
                 newFeature.value = ''
                 newFeatureInputFieldVisibility.value = false
                 generalStore.setSnackbarMessage(response.data.message)
@@ -58,7 +57,7 @@ function deleteFeature(feature) {
     .then(response => {
         generalStore.setSnackbarMessage(response.data.message)
         generalStore.setSnackbarColor('success')
-        features.value = features.value.filter(f => f.id !== feature.id)
+        featureStore.deleteFeature(feature)
         generalStore.showSnackbar()
     })
     .catch(error => {
@@ -71,7 +70,7 @@ function getFeatures() {
     const endPoint = `/get-features?idea_id=${ideaId}`
     axios.get(endPoint)
     .then(response => {
-        features.value = response.data.features
+        featureStore.setFeatures(response.data.features)
     })
     .catch(error => {
         console.error(error)
@@ -99,8 +98,8 @@ onBeforeMount(() => {
                     <v-card-title>
                         Brainstorm your features
                     </v-card-title>
-                    <v-card-text v-if="features.length > 0">
-                        <p class="text-pre-wrap" v-for="feature in features" :key="feature.id">
+                    <v-card-text v-if="featureStore.features.length > 0">
+                        <p class="text-pre-wrap" v-for="feature in featureStore.features" :key="feature.id">
                             <v-icon color="secondary">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }} <v-icon @click="deleteFeature(feature)" color="error">mdi-delete</v-icon>
                         </p>
                     </v-card-text>

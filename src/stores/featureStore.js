@@ -11,6 +11,14 @@ export const useFeatureStore = defineStore('featureStore', () => {
         features.value = newFeatures
     }
 
+    function addFeature(feature) {
+        features.value.push(feature)
+    }
+
+    function deleteFeature(feature) {
+        features.value = features.value.filter(f => f.id !== feature.id)
+    }
+
     function showEditFeatureDialog() {
         editFeatureDialogVisibility.value = true
     }
@@ -33,6 +41,8 @@ export const useFeatureStore = defineStore('featureStore', () => {
         editedFeatureDescription,
         editedFeature,
         setFeatures,
+        addFeature,
+        deleteFeature,
         setEditedFeature,
         showEditFeatureDialog,
         hideEditFeatureDialog,
