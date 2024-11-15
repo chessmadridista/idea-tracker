@@ -5,8 +5,6 @@ import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const featureStore = useFeatureStore()
-const editFeatureInputFieldVisibility = ref(false)
-const editFeatureTextAreaRefs = ref({})
 const generalStore = useGeneralStore()
 const features = ref([])
 const newFeatureInputFieldVisibility = ref(false)
