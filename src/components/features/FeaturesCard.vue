@@ -1,6 +1,6 @@
 <script setup>
 import { useFeatureStore, useGeneralStore } from '@/stores';
-import { onBeforeMount, inject, ref } from 'vue';
+import { onBeforeMount, inject, ref, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
@@ -12,6 +12,7 @@ const features = ref([])
 const newFeatureInputFieldVisibility = ref(false)
 const router = useRouter()
 const form = ref(null)
+const newFeatureTextAreaRef = ref(null)
 const newFeature = ref('')
 
 function addNewFeature() {
@@ -81,6 +82,11 @@ function getFeatures() {
 
 function showNewFeatureInputField() {
     newFeatureInputFieldVisibility.value = true
+    nextTick(() => {
+        if (newFeatureTextAreaRef.value) {
+            newFeatureTextAreaRef.value.focus();
+        }
+    })
 }
 
 onBeforeMount(() => {
@@ -103,6 +109,7 @@ onBeforeMount(() => {
                     <v-card-text v-if="newFeatureInputFieldVisibility">
                         <v-form ref="form" @submit.prevent="addNewFeature">
                             <v-textarea 
+                                ref="newFeatureTextAreaRef"
                                 color="primary"
                                 label="Describe the feature in detail*"
                                 v-model="newFeature"
