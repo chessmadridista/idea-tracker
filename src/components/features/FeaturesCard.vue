@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const featureStore = useFeatureStore()
+const editFeatureInputFieldVisibility = ref(false)
+const editFeatureTextAreaRefs = ref({})
 const generalStore = useGeneralStore()
 const features = ref([])
 const newFeatureInputFieldVisibility = ref(false)
@@ -39,6 +41,22 @@ function addNewFeature() {
             })
         }
     })
+}
+
+function editFeature(feature) {
+    feature.editFeatureInputFieldVisibility = true
+}
+
+function assignRef(el, id) {
+    if (el) {
+        editFeatureTextAreaRefs.value[id] = el;
+    } else {
+        delete editFeatureTextAreaRefs.value[id];
+    }
+} 
+
+function updateFeature(feature) {
+    feature.editFeatureInputFieldVisibility = false
 }
 
 function deleteFeature(feature) {
@@ -89,7 +107,7 @@ onBeforeMount(() => {
                     </v-card-title>
                     <v-card-text v-if="features.length > 0">
                         <p class="text-pre-wrap" v-for="feature in features" :key="feature.id">
-                            <v-icon color="secondary">mdi-circle</v-icon> {{ feature.description }} <v-icon @click="deleteFeature(feature)" color="error">mdi-delete</v-icon>
+                            <v-icon color="secondary">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }} <v-icon @click="deleteFeature(feature)" color="error">mdi-delete</v-icon>
                         </p>
                     </v-card-text>
                     <v-card-text v-if="newFeatureInputFieldVisibility">
