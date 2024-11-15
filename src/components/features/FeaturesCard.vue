@@ -44,19 +44,8 @@ function addNewFeature() {
 }
 
 function editFeature(feature) {
-    feature.editFeatureInputFieldVisibility = true
-}
-
-function assignRef(el, id) {
-    if (el) {
-        editFeatureTextAreaRefs.value[id] = el;
-    } else {
-        delete editFeatureTextAreaRefs.value[id];
-    }
-} 
-
-function updateFeature(feature) {
-    feature.editFeatureInputFieldVisibility = false
+    featureStore.setEditedFeatureDescription(feature.description)
+    featureStore.showEditFeatureDialog()
 }
 
 function deleteFeature(feature) {
