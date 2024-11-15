@@ -2,9 +2,14 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useFeatureStore = defineStore('featureStore', () => {
+    const features = ref([])
     const editFeatureDialogVisibility = ref(false)
     const editedFeature = ref({})
     const editedFeatureDescription = ref('')
+
+    function setFeatures(newFeatures) {
+        features.value = newFeatures
+    }
 
     function showEditFeatureDialog() {
         editFeatureDialogVisibility.value = true
@@ -23,9 +28,11 @@ export const useFeatureStore = defineStore('featureStore', () => {
     }
 
     return {
+        features,
         editFeatureDialogVisibility,
         editedFeatureDescription,
         editedFeature,
+        setFeatures,
         setEditedFeature,
         showEditFeatureDialog,
         hideEditFeatureDialog,
