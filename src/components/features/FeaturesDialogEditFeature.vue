@@ -50,7 +50,7 @@ function updateFeature() {
             <v-card-title class="text-center">Edit this feature</v-card-title>
             <v-card-text>
                 <v-form ref="form" @submit.prevent="updateFeature">
-                    <v-text-field v-model="featureStore.editedFeatureDescription" label="Describe the feature in detail*" 
+                    <v-textarea v-model="featureStore.editedFeatureDescription" label="Describe the feature in detail*" 
                         :rules="[v => !!v || 'This field is required.']"    
                     />
                     <v-btn type="submit" block color="primary" prepend-icon="mdi-check">
