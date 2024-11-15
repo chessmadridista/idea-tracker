@@ -2,7 +2,7 @@
 import { onBeforeMount, inject, ref } from 'vue';
 
 const axios = inject('axios')
-const features = ref([])
+const featureStore = useFeatureStore()
 
 function getFeatures() {
     const endPoint = '/get-features'
@@ -13,6 +13,10 @@ function getFeatures() {
     .catch(error => {
         console.error(error)
     })
+}
+
+function showAddFeatureDialog() {
+    featureStore.showAddFeatureDialog()
 }
 
 onBeforeMount(() => {
