@@ -15,6 +15,11 @@ export const useFeatureStore = defineStore('featureStore', () => {
         features.value.push(feature)
     }
 
+    function updateFeature(feature) {
+        const index = features.value.findIndex(f => f.id === feature.id)
+        features.value[index] = feature
+    }
+
     function deleteFeature(feature) {
         features.value = features.value.filter(f => f.id !== feature.id)
     }
@@ -42,6 +47,7 @@ export const useFeatureStore = defineStore('featureStore', () => {
         editedFeature,
         setFeatures,
         addFeature,
+        updateFeature,
         deleteFeature,
         setEditedFeature,
         showEditFeatureDialog,

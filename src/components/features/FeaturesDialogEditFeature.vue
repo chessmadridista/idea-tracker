@@ -18,6 +18,12 @@ function updateFeature() {
             axios.post(endPoint, formData)
                 .then(response => {
                     console.log(response);
+                    const editedFeature = {
+                        id: featureStore.editedFeature.id,
+                        idea_id: featureStore.editedFeature.idea_id,
+                        description: featureStore.editedFeatureDescription
+                    }
+                    featureStore.updateFeature(editedFeature)
                     featureStore.setEditedFeatureDescription('')
                     featureStore.setEditedFeature({})
                     generalStore.setSnackbarMessage(response.data.message)
