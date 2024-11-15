@@ -1,28 +1,28 @@
 <script setup>
-import { useIdeaStore, useGeneralStore } from '@/stores'
+import { useGeneralStore, useFeatureStore } from '@/stores'
 import { ref, inject } from 'vue'
 
 const axios = inject('axios')
 const form = ref(null)
 const generalStore = useGeneralStore()
-const ideaStore = useIdeaStore()
+const featureStore = useFeatureStore()
 
-function updateIdea() {
+function updateFeature() {
     form.value.validate().then((response) => {
         if (response.valid) {
-            const endPoint = '/update-idea'
+            const endPoint = '/update-feature'
             const formData = new FormData()
-            formData.append('idea_id', ideaStore.selectedIdea.id)
-            formData.append('idea_name', ideaStore.selectedIdea.name)
-            formData.append('idea_description', ideaStore.selectedIdea.description)
+            formData.append('feature_id', featureStore.editedFeature.id)
+            formData.append('idea_id', featureStore.editedFeature.idea_id)
+            formData.append('feature_description', featureStore.editedFeatureDescription)
             axios.post(endPoint, formData)
                 .then(response => {
                     console.log(response);
-                    ideaStore.selectedIdeaName = ideaStore.selectedIdea.name
-                    ideaStore.selectedIdeaDescription = ideaStore.selectedIdea.description
+                    featureStore.setEditedFeatureDescription('')
+                    featureStore.setEditedFeature({})
                     generalStore.setSnackbarMessage(response.data.message)
                     generalStore.setSnackbarColor('success')
-                    ideaStore.hideEditIdeaDialog()
+                    featureStore.hideEditFeatureDialog()
                 })
                 .catch(error => {
                     console.error(error);
@@ -43,13 +43,10 @@ function updateIdea() {
         <v-card>
             <v-card-title class="text-center">Edit this feature</v-card-title>
             <v-card-text>
-                <v-form ref="form" @submit.prevent="updateIdea">
-                    <v-text-field 
-                        label="What is your app idea?*" 
-                        v-model="ideaStore.selectedIdea.name" 
-                        :rules="[v => !!v || 'This field is required.']"
+                <v-form ref="form" @submit.prevent="updateFeature">
+                    <v-text-field v-model="featureStore.editedFeatureDescription" label="Describe the feature in detail*" 
+                        :rules="[v => !!v || 'This field is required.']"    
                     />
-                    <v-text-field v-model="ideaStore.selectedIdea.description" label="Describe the idea in more detail" />
                     <v-btn type="submit" block color="primary" prepend-icon="mdi-check">
                         Update
                     </v-btn>
