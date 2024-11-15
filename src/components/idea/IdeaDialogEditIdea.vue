@@ -41,15 +41,15 @@ function updateIdea() {
 <template>
     <v-dialog v-model="ideaStore.editIdeaDialogVisibility">
         <v-card>
-            <v-card-title>Add new idea</v-card-title>
+            <v-card-title class="text-center">Edit this idea</v-card-title>
             <v-card-text>
                 <v-form ref="form" @submit.prevent="updateIdea">
                     <v-text-field 
-                        label="Name*" 
+                        label="What is your app idea?*" 
                         v-model="ideaStore.selectedIdea.name" 
-                        :rules="[v => !!v || 'Name is required']"
+                        :rules="[v => !!v || 'This field is required.']"
                     />
-                    <v-text-field v-model="ideaStore.selectedIdea.description" label="Description" />
+                    <v-text-field v-model="ideaStore.selectedIdea.description" label="Describe the idea in more detail" />
                     <v-btn type="submit" block color="primary" prepend-icon="mdi-check">
                         Update
                     </v-btn>

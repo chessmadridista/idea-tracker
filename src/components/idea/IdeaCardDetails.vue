@@ -27,6 +27,12 @@ function getIdea() {
 }
 
 function editIdea() {
+    const idea = {
+        id: ideaStore.selectedIdea.id,
+        name: ideaStore.selectedIdeaName,
+        description: ideaStore.selectedIdeaDescription,
+    }
+    ideaStore.setSelectedIdea(idea)
     ideaStore.showEditIdeaDialog()
 }
 
