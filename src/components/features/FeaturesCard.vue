@@ -1,13 +1,17 @@
 <script setup>
 import { useFeatureStore } from '@/stores';
 import { onBeforeMount, inject, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const featureStore = useFeatureStore()
 const features = ref([])
+const newFeatureInputFieldVisibility = ref(false)
+const router = useRouter()
 
 function getFeatures() {
-    const endPoint = '/get-features'
+    const ideaId = router.currentRoute.value.params.id
+    const endPoint = `/get-features?idea_id=${ideaId}`
     axios.get(endPoint)
     .then(response => {
         features.value = response.data.features
@@ -17,8 +21,8 @@ function getFeatures() {
     })
 }
 
-function showAddFeatureDialog() {
-    return
+function showAddNewFeatureInputField() {
+    newFeatureInputFieldVisibility.value = true
 }
 
 onBeforeMount(() => {
@@ -37,8 +41,14 @@ onBeforeMount(() => {
                     <v-card-text v-for="feature in features" :key="feature.id">
                         {{ feature.description }}
                     </v-card-text>
+                    <v-card-text v-if="newFeatureInputFieldVisibility">
+                        <v-text-field 
+                            color="primary"
+                            label="Describe the feature in detail*"
+                        />
+                    </v-card-text>
                     <v-card-actions>
-                        <v-btn variant="elevated" color="primary" prepend-icon="mdi-plus">
+                        <v-btn variant="elevated" color="primary" prepend-icon="mdi-plus" @click="showAddNewFeatureInputField">
                             Add new feature
                         </v-btn>
                     </v-card-actions>
