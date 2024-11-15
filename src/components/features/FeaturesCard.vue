@@ -29,6 +29,7 @@ function addNewFeature() {
                 }
                 features.value.push(feature)
                 newFeature.value = ''
+                newFeatureInputFieldVisibility.value = false
                 generalStore.setSnackbarMessage(response.data.message)
                 generalStore.setSnackbarColor('success')
                 generalStore.showSnackbar()
@@ -70,6 +71,10 @@ function getFeatures() {
     })
 }
 
+function showNewFeatureInputField() {
+    newFeatureInputFieldVisibility.value = true
+}
+
 onBeforeMount(() => {
     getFeatures()
 })
@@ -87,7 +92,7 @@ onBeforeMount(() => {
                             <v-icon color="secondary">mdi-circle</v-icon> {{ feature.description }} <v-icon @click="deleteFeature(feature)" color="error">mdi-delete</v-icon>
                         </p>
                     </v-card-text>
-                    <v-card-text>
+                    <v-card-text v-if="newFeatureInputFieldVisibility">
                         <v-form ref="form" @submit.prevent="addNewFeature">
                             <v-textarea 
                                 color="primary"
@@ -100,6 +105,11 @@ onBeforeMount(() => {
                             </v-btn>
                         </v-form>
                     </v-card-text>
+                    <v-card-actions v-else>
+                        <v-btn variant="elevated" color="primary" @click="showNewFeatureInputField" prepend-icon="mdi-plus">
+                            Create new feature
+                        </v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-col>
         </v-row>
