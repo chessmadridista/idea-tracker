@@ -1,8 +1,10 @@
 <script setup>
+import { useFeatureStore } from '@/stores';
 import { onBeforeMount, inject, ref } from 'vue';
 
 const axios = inject('axios')
 const featureStore = useFeatureStore()
+const features = ref([])
 
 function getFeatures() {
     const endPoint = '/get-features'
@@ -16,7 +18,7 @@ function getFeatures() {
 }
 
 function showAddFeatureDialog() {
-    featureStore.showAddFeatureDialog()
+    return
 }
 
 onBeforeMount(() => {
@@ -30,12 +32,13 @@ onBeforeMount(() => {
                 <v-card>
                     <v-card-title>
                         Features
+                        <v-icon color="primary" v-if="features.length > 0">mdi-pencil</v-icon>
                     </v-card-title>
                     <v-card-text v-for="feature in features" :key="feature.id">
                         {{ feature.description }}
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn variant="elevated" color="primary" @click="addNewFeature">
+                        <v-btn variant="elevated" color="primary" prepend-icon="mdi-plus">
                             Add new feature
                         </v-btn>
                     </v-card-actions>
