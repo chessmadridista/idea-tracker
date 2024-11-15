@@ -52,7 +52,7 @@ onBeforeMount(() => {
                     <v-card-title>
                         {{ ideaStore.selectedIdeaName }}
                     </v-card-title>
-                    <v-card-text>
+                    <v-card-text class="text-pre-wrap">
                         {{ ideaStore.selectedIdeaDescription }}
                     </v-card-text>
                     <v-card-actions>
@@ -65,3 +65,8 @@ onBeforeMount(() => {
         </v-row>
     </v-container>
 </template>
+<style scoped>
+.text-pre-wrap {
+    white-space: pre-wrap;
+}
+</style>
