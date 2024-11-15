@@ -26,7 +26,6 @@ function login() {
       const formData = getFormData()
       axios.post(endPoint, formData)
       .then((response) => {
-        console.log(response)
         userStore.setUser(username.value)
         userStore.setUserLoggedIn()
         generalStore.setSnackbarMessage(response.data.message)
@@ -34,7 +33,6 @@ function login() {
         router.push('/')
       })
       .catch((error) => {
-        console.error(error)
         generalStore.setSnackbarMessage(error.response.data.message)
         generalStore.setSnackbarColor('error')
       })

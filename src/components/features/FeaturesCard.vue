@@ -35,7 +35,6 @@ function addNewFeature() {
                 generalStore.showSnackbar()
             })
             .catch(error => {
-                console.error(error)
             })
         }
     })
@@ -61,7 +60,6 @@ function deleteFeature(feature) {
         generalStore.showSnackbar()
     })
     .catch(error => {
-        console.error(error)
     })
 }
 
@@ -73,7 +71,7 @@ function getFeatures() {
         featureStore.setFeatures(response.data.features)
     })
     .catch(error => {
-        console.error(error)
+        featureStore.setFeatures(error.response.data.features)
     })
 }
 

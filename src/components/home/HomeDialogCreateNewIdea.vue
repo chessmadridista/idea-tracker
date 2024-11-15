@@ -18,7 +18,6 @@ function createNewTask() {
             formData.append('idea_description', description.value)
             axios.post(endPoint, formData)
                 .then(response => {
-                    console.log(response);
                     const idea = {
                         id: response.data.idea_id,
                         name: name.value,
@@ -32,7 +31,6 @@ function createNewTask() {
                     ideaStore.hideAddNewIdeaDialog()
                 })
                 .catch(error => {
-                    console.error(error);
                     generalStore.setSnackbarMessage(error)
                     generalStore.setSnackbarColor('error')
                 })

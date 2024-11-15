@@ -17,7 +17,6 @@ function updateIdea() {
             formData.append('idea_description', ideaStore.selectedIdea.description)
             axios.post(endPoint, formData)
                 .then(response => {
-                    console.log(response);
                     ideaStore.selectedIdeaName = ideaStore.selectedIdea.name
                     ideaStore.selectedIdeaDescription = ideaStore.selectedIdea.description
                     generalStore.setSnackbarMessage(response.data.message)
@@ -25,7 +24,6 @@ function updateIdea() {
                     ideaStore.hideEditIdeaDialog()
                 })
                 .catch(error => {
-                    console.error(error);
                     generalStore.setSnackbarMessage(error)
                     generalStore.setSnackbarColor('error')
                 })

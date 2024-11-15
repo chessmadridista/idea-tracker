@@ -17,7 +17,6 @@ function updateFeature() {
             formData.append('feature_description', featureStore.editedFeatureDescription)
             axios.post(endPoint, formData)
                 .then(response => {
-                    console.log(response);
                     const editedFeature = {
                         id: featureStore.editedFeature.id,
                         idea_id: featureStore.editedFeature.idea_id,
@@ -31,7 +30,6 @@ function updateFeature() {
                     featureStore.hideEditFeatureDialog()
                 })
                 .catch(error => {
-                    console.error(error);
                     generalStore.setSnackbarMessage(error)
                     generalStore.setSnackbarColor('error')
                 })

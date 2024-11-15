@@ -28,13 +28,11 @@ async function signup() {
       axios
         .post(endPoint, formData)
         .then((response) => {
-          console.log(response)
           generalStore.setSnackbarMessage(response.data.message)
           generalStore.setSnackbarColor('success')
           router.push('login')
         })
         .catch((error) => {
-          console.error(error)
           generalStore.setSnackbarMessage(error.response.data.message)
           generalStore.setSnackbarColor('error')
         })
