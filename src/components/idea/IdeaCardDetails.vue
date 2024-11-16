@@ -48,17 +48,17 @@ onBeforeMount(() => {
     <v-container>
         <v-row>
             <v-col>
-                <v-card>
-                    <v-card-title>
+                <v-card class="pa-4 rounded-xl">
+                    <v-card-title class="text-center text-primary-darken-1">
                         {{ ideaStore.selectedIdeaName }}
                     </v-card-title>
-                    <v-card-text class="text-pre-wrap">
+                    <v-card-text class="text-pre-wrap text-blue-grey-darken-3">
                         {{ ideaStore.selectedIdeaDescription }}
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="error" variant="elevated" @click="deleteIdea">Delete</v-btn>
+                        <v-btn color="error" variant="outlined" @click="deleteIdea" class="rounded-pill" prepend-icon="mdi-delete">Delete</v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" variant="elevated" @click="editIdea">Edit</v-btn>
+                        <v-btn color="#007bff" variant="outlined" @click="editIdea" class="rounded-pill" prepend-icon="mdi-pencil">Edit</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>

@@ -45,15 +45,17 @@ function updateFeature() {
 <template>
     <v-dialog v-model="featureStore.editFeatureDialogVisibility">
         <v-card>
-            <v-card-title class="text-center">Edit this feature</v-card-title>
+            <v-card-title class="text-center text-blue-grey-darken-2">Edit this feature</v-card-title>
             <v-card-text>
                 <v-form ref="form" @submit.prevent="updateFeature">
                     <v-textarea v-model="featureStore.editedFeatureDescription" label="Describe the feature in detail*" 
                         :rules="[v => !!v || 'This field is required.']"    
                     />
-                    <v-btn type="submit" block color="primary" prepend-icon="mdi-check">
-                        Update
-                    </v-btn>
+                    <div class="text-right">
+                        <v-btn class="rounded-pill" type="submit" color="primary" prepend-icon="mdi-check">
+                            Update
+                        </v-btn>
+                    </div>
                 </v-form>
             </v-card-text>
             <v-card-actions>

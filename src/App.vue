@@ -54,3 +54,8 @@ onBeforeMount(async () => {
     </v-main>
   </v-app>
 </template>
+<style scoped>
+.v-application {
+  background: linear-gradient(135deg, #ccefff, #e0f7fa);
+}
+</style>

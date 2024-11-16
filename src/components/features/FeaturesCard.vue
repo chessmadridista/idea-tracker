@@ -92,8 +92,8 @@ onBeforeMount(() => {
     <v-container>
         <v-row>
             <v-col>
-                <v-card>
-                    <v-card-title>
+                <v-card class="pa-4 rounded-xl">
+                    <v-card-title class="text-center text-blue-grey-darken-2">
                         Brainstorm your features
                     </v-card-title>
                     <v-card-text v-if="featureStore.features.length > 0">
@@ -110,13 +110,15 @@ onBeforeMount(() => {
                                 v-model="newFeature"
                                 :rules="[(v) => !!v || 'This field is required.']"
                             />
-                            <v-btn type="submit" variant="elevated" color="primary" prepend-icon="mdi-check">
-                                Add this feature
-                            </v-btn>
+                            <div class="text-right">
+                                <v-btn class="rounded-pill" type="submit" variant="elevated" color="#007bff" prepend-icon="mdi-check">
+                                    Add this feature
+                                </v-btn>
+                            </div>
                         </v-form>
                     </v-card-text>
-                    <v-card-actions v-else>
-                        <v-btn variant="elevated" color="primary" @click="showNewFeatureInputField" prepend-icon="mdi-plus">
+                    <v-card-actions v-else class="d-flex justify-end">
+                        <v-btn variant="elevated" color="#007bff" @click="showNewFeatureInputField" prepend-icon="mdi-plus" class="rounded-pill">
                             Create new feature
                         </v-btn>
                     </v-card-actions>
