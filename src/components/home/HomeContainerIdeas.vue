@@ -21,7 +21,7 @@ onBeforeMount(() => {
 <template>
     <v-container>
         <v-row>
-            <v-col v-for="idea in ideaStore.ideas" :key="idea.id" cols="12">
+            <v-col v-for="idea in ideaStore.ideas" :key="idea.id" cols="12" lg="6" xl="4">
                 <v-card class="pa-4" :to="{ name: 'idea', params: { id: idea.id } }">
                     <v-card-title class="text-center">
                         {{ idea.name }}
