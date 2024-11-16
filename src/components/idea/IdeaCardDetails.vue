@@ -49,10 +49,10 @@ onBeforeMount(() => {
         <v-row>
             <v-col>
                 <v-card class="pa-4 rounded-xl elevation-4">
-                    <v-card-title class="text-center">
+                    <v-card-title class="text-center text-primary-darken-1">
                         {{ ideaStore.selectedIdeaName }}
                     </v-card-title>
-                    <v-card-text class="text-pre-wrap">
+                    <v-card-text class="text-pre-wrap text-blue-grey-darken-3">
                         {{ ideaStore.selectedIdeaDescription }}
                     </v-card-text>
                     <v-card-actions>

@@ -51,9 +51,11 @@ function updateFeature() {
                     <v-textarea v-model="featureStore.editedFeatureDescription" label="Describe the feature in detail*" 
                         :rules="[v => !!v || 'This field is required.']"    
                     />
-                    <v-btn type="submit" block color="primary" prepend-icon="mdi-check">
-                        Update
-                    </v-btn>
+                    <div class="text-right">
+                        <v-btn class="rounded-pill" type="submit" color="primary" prepend-icon="mdi-check">
+                            Update
+                        </v-btn>
+                    </div>
                 </v-form>
             </v-card-text>
             <v-card-actions>
