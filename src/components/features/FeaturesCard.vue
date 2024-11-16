@@ -92,8 +92,8 @@ onBeforeMount(() => {
     <v-container>
         <v-row>
             <v-col>
-                <v-card class="pa-4 rounded-xl elevation-4">
-                    <v-card-title class="text-center">
+                <v-card class="pa-4 rounded-xl">
+                    <v-card-title class="text-center text-blue-grey-darken-2">
                         Brainstorm your features
                     </v-card-title>
                     <v-card-text v-if="featureStore.features.length > 0">

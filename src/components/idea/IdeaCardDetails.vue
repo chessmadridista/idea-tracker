@@ -48,7 +48,7 @@ onBeforeMount(() => {
     <v-container>
         <v-row>
             <v-col>
-                <v-card class="pa-4 rounded-xl elevation-4">
+                <v-card class="pa-4 rounded-xl">
                     <v-card-title class="text-center text-primary-darken-1">
                         {{ ideaStore.selectedIdeaName }}
                     </v-card-title>
