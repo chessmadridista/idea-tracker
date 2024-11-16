@@ -92,8 +92,8 @@ onBeforeMount(() => {
     <v-container>
         <v-row>
             <v-col>
-                <v-card>
-                    <v-card-title>
+                <v-card class="pa-4 rounded-xl elevation-4">
+                    <v-card-title class="text-center">
                         Brainstorm your features
                     </v-card-title>
                     <v-card-text v-if="featureStore.features.length > 0">
@@ -115,8 +115,8 @@ onBeforeMount(() => {
                             </v-btn>
                         </v-form>
                     </v-card-text>
-                    <v-card-actions v-else>
-                        <v-btn variant="elevated" color="primary" @click="showNewFeatureInputField" prepend-icon="mdi-plus">
+                    <v-card-actions v-else class="d-flex justify-end">
+                        <v-btn variant="elevated" color="primary" @click="showNewFeatureInputField" prepend-icon="mdi-plus" class="rounded-pill">
                             Create new feature
                         </v-btn>
                     </v-card-actions>
