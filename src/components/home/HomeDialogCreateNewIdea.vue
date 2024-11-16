@@ -46,7 +46,7 @@ function createNewTask() {
 <template>
     <v-dialog v-model="ideaStore.addNewIdeaDialogVisibility">
         <v-card>
-            <v-card-title class="text-center">Add new idea</v-card-title>
+            <v-card-title class="text-center text-blue-grey-darken-2">Add new idea</v-card-title>
             <v-card-text>
                 <v-form ref="form" @submit.prevent="createNewTask">
                     <v-text-field 
@@ -55,9 +55,11 @@ function createNewTask() {
                         :rules="[v => !!v || 'This field is required.']"
                     />
                     <v-text-field v-model="description" label="Describe the idea in more detail" />
-                    <v-btn type="submit" block color="primary" prepend-icon="mdi-check">
-                        Add this idea
-                    </v-btn>
+                    <div class="text-right">
+                        <v-btn class="rounded-pill" type="submit" color="primary" prepend-icon="mdi-check">
+                            Add this idea
+                        </v-btn>
+                    </div>
                 </v-form>
             </v-card-text>
             <v-card-actions>
