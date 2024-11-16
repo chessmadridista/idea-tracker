@@ -22,7 +22,7 @@ onBeforeMount(() => {
     <v-container>
         <v-row>
             <v-col v-for="idea in ideaStore.ideas" :key="idea.id" cols="12" lg="6" xl="4">
-                <v-card class="pa-4" :to="{ name: 'idea', params: { id: idea.id } }">
+                <v-card class="pa-4 rounded-xl elevation-4" :to="{ name: 'idea', params: { id: idea.id } }">
                     <v-card-title class="text-center text-primary-darken-1">
                         {{ idea.name }}
                     </v-card-title>
