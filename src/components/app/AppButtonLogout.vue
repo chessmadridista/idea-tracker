@@ -28,7 +28,7 @@ function logout() {
 }
 </script>
 <template>
-    <v-btn @click="logout">
+    <v-btn @click="logout" prepend-icon="mdi-logout">
         Logout
     </v-btn>
 </template>
