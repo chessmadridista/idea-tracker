@@ -45,7 +45,7 @@ function updateFeature() {
 <template>
     <v-dialog v-model="featureStore.editFeatureDialogVisibility">
         <v-card>
-            <v-card-title class="text-center">Edit this feature</v-card-title>
+            <v-card-title class="text-center text-blue-grey-darken-2">Edit this feature</v-card-title>
             <v-card-text>
                 <v-form ref="form" @submit.prevent="updateFeature">
                     <v-textarea v-model="featureStore.editedFeatureDescription" label="Describe the feature in detail*" 
