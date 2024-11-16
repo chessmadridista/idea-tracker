@@ -18,7 +18,7 @@ function addNewIdea() {
                 </p>
             </v-col>
             <v-col class="text-right">
-                <v-btn @click="addNewIdea" color="primary" prepend-icon="mdi-plus">
+                <v-btn @click="addNewIdea" color="#007bff" prepend-icon="mdi-plus">
                     Add new idea
                 </v-btn>
             </v-col>
