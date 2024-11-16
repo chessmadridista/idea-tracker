@@ -58,7 +58,7 @@ onBeforeMount(() => {
                     <v-card-actions>
                         <v-btn color="error" variant="outlined" @click="deleteIdea" class="rounded-pill" prepend-icon="mdi-delete">Delete</v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" variant="outlined" @click="editIdea" class="rounded-pill" prepend-icon="mdi-pencil">Edit</v-btn>
+                        <v-btn color="#007bff" variant="outlined" @click="editIdea" class="rounded-pill" prepend-icon="mdi-pencil">Edit</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>

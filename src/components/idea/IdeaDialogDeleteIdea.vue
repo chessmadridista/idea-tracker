@@ -38,7 +38,7 @@ function yes() {
         <v-card>
             <v-card-title class="text-center">Do you want to delete this idea?</v-card-title>
             <v-card-actions>
-                <v-btn color="primary" variant="outlined" @click="no">No</v-btn>
+                <v-btn color="#007bff" variant="outlined" @click="no">No</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn color="error" variant="outlined" @click="yes">Yes</v-btn>
             </v-card-actions>

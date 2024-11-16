@@ -111,14 +111,14 @@ onBeforeMount(() => {
                                 :rules="[(v) => !!v || 'This field is required.']"
                             />
                             <div class="text-right">
-                                <v-btn class="rounded-pill" type="submit" variant="elevated" color="primary" prepend-icon="mdi-check">
+                                <v-btn class="rounded-pill" type="submit" variant="elevated" color="#007bff" prepend-icon="mdi-check">
                                     Add this feature
                                 </v-btn>
                             </div>
                         </v-form>
                     </v-card-text>
                     <v-card-actions v-else class="d-flex justify-end">
-                        <v-btn variant="elevated" color="primary" @click="showNewFeatureInputField" prepend-icon="mdi-plus" class="rounded-pill">
+                        <v-btn variant="elevated" color="#007bff" @click="showNewFeatureInputField" prepend-icon="mdi-plus" class="rounded-pill">
                             Create new feature
                         </v-btn>
                     </v-card-actions>
