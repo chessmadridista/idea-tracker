@@ -23,5 +23,13 @@ function addNewIdea() {
                 </v-btn>
             </v-col>
         </v-row>
+        <v-row>
+            <v-col>
+                <h3 class="text-center text-blue-grey-darken-2">
+                    Your app ideas
+                </h3>
+                <p class="text-grey-darken-2">Here are your app ideas</p>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
