@@ -38,7 +38,7 @@ function updateIdea() {
 </script>
 <template>
     <v-dialog v-model="ideaStore.editIdeaDialogVisibility">
-        <v-card>
+        <v-card class="pa-4 rounded-xl">
             <v-card-title class="text-center text-blue-grey-darken-2">Edit this idea</v-card-title>
             <v-card-text>
                 <v-form ref="form" @submit.prevent="updateIdea">
