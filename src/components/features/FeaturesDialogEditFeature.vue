@@ -1,11 +1,13 @@
 <script setup>
 import { useGeneralStore, useFeatureStore } from '@/stores'
 import { ref, inject } from 'vue'
+import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const form = ref(null)
 const generalStore = useGeneralStore()
 const featureStore = useFeatureStore()
+const router = useRouter()
 
 function updateFeature() {
     form.value.validate().then((response) => {
@@ -41,6 +43,25 @@ function updateFeature() {
         }
     })
 }
+
+function deleteFeature() {
+    const endPoint = '/delete-feature'
+    const ideaId = router.currentRoute.value.params.id
+    const formData = new FormData()
+    const featureToBeDeleted = featureStore.editedFeature
+    formData.append('feature_id', featureToBeDeleted.id)
+    formData.append('idea_id', ideaId)
+    axios.post(endPoint, formData)
+    .then(response => {
+        generalStore.setSnackbarMessage(response.data.message)
+        generalStore.setSnackbarColor('success')
+        featureStore.deleteFeature(featureToBeDeleted)
+        generalStore.showSnackbar()
+        featureStore.hideEditFeatureDialog()
+    })
+    .catch(error => {
+    })
+}
 </script>
 <template>
     <v-dialog v-model="featureStore.editFeatureDialogVisibility">
@@ -51,7 +72,10 @@ function updateFeature() {
                     <v-textarea v-model="featureStore.editedFeatureDescription" label="Describe the feature in detail*" 
                         :rules="[v => !!v || 'This field is required.']"    
                     />
-                    <div class="text-right">
+                    <div class="d-flex justify-space-between">
+                        <v-btn class="rounded-pill" color="error" prepend-icon="mdi-delete" @click="deleteFeature" >
+                            Delete
+                        </v-btn>
                         <v-btn class="rounded-pill" type="submit" color="#28a745" prepend-icon="mdi-check">
                             Update
                         </v-btn>
