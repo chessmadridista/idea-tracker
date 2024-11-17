@@ -74,7 +74,7 @@ onBeforeMount(() => {
 <template>
     <v-card class="pa-4 rounded-xl">
         <v-card-title class="text-center text-blue-grey-darken-2">
-            Your journals
+            Your learnings
         </v-card-title>
         <v-card-text v-if="journalStore.journals.length > 0">
             <p class="text-pre-wrap" v-for="journal in journalStore.journals" :key="journal.id">
