@@ -77,7 +77,7 @@ onBeforeMount(() => {
             Brainstorm your features
         </v-card-title>
         <v-card-text v-if="featureStore.features.length > 0">
-            <p class="text-pre-wrap" v-for="feature in featureStore.features" :key="feature.id">
+            <p class="text-pre-wrap bg-blue-lighten-5 rounded-lg mt-2 pa-4" v-for="feature in featureStore.features" :key="feature.id">
                 <v-icon color="secondary">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }}
             </p>
         </v-card-text>
