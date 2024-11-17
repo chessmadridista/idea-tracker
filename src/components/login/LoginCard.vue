@@ -49,7 +49,7 @@ function login() {
   <v-container class="card-container">
     <v-row>
       <v-col>
-        <v-card class="pa-4">
+        <v-card class="pa-4 rounded-xl">
           <v-card-title class="text-center">Login</v-card-title>
           <v-card-text>
             <v-form ref="form" @submit.prevent="login">
@@ -67,7 +67,7 @@ function login() {
                 label="Password*" 
                 :rules="[(v) => !!v || 'Password is required.']"
               />
-              <v-btn variant="elevated" color="primary" block type="submit">Login</v-btn>
+              <v-btn variant="elevated" class="rounded-pill" color="primary" block type="submit">Login</v-btn>
             </v-form>
             <p class="text-center mt-4">Don't have an account? <router-link to="/signup">Sign up</router-link></p>
           </v-card-text>
