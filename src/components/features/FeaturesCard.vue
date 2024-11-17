@@ -111,7 +111,7 @@ onBeforeMount(() => {
                                 :rules="[(v) => !!v || 'This field is required.']"
                             />
                             <div class="text-right">
-                                <v-btn class="rounded-pill" type="submit" variant="elevated" color="#007bff" prepend-icon="mdi-check">
+                                <v-btn class="rounded-pill" type="submit" variant="elevated" color="#28a745" prepend-icon="mdi-check">
                                     Add this feature
                                 </v-btn>
                             </div>

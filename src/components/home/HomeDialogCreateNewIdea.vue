@@ -45,7 +45,7 @@ function createNewTask() {
 </script>
 <template>
     <v-dialog v-model="ideaStore.addNewIdeaDialogVisibility">
-        <v-card>
+        <v-card class="pa-4 rounded-xl">
             <v-card-title class="text-center text-blue-grey-darken-2">Add new idea</v-card-title>
             <v-card-text>
                 <v-form ref="form" @submit.prevent="createNewTask">
@@ -56,7 +56,7 @@ function createNewTask() {
                     />
                     <v-text-field v-model="description" label="Describe the idea in more detail" />
                     <div class="text-right">
-                        <v-btn class="rounded-pill" type="submit" color="primary" prepend-icon="mdi-check">
+                        <v-btn class="rounded-pill" type="submit" color="#28a745" prepend-icon="mdi-check">
                             Add this idea
                         </v-btn>
                     </div>

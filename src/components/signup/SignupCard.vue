@@ -49,8 +49,8 @@ async function signup() {
   <v-container class="card-container">
     <v-row>
       <v-col>
-        <v-card class="pa-4">
-          <v-card-title class="text-center">Signup</v-card-title>
+        <v-card class="pa-4 rounded-xl">
+          <v-card-title class="text-center text-blue-grey-darken-2">Signup</v-card-title>
           <v-card-text>
             <v-form ref="form" @submit.prevent="signup">
               <v-text-field 
@@ -74,7 +74,7 @@ async function signup() {
                 label="Password*" 
                 :rules="[(v) => !!v || 'Password is required.']"
               />
-              <v-btn variant="elevated" color="primary" block type="submit">Signup</v-btn>
+              <v-btn variant="elevated" color="primary" class="rounded-pill" block type="submit">Signup</v-btn>
             </v-form>
             <p class="text-center mt-4">Already have an account? <router-link to="/login">Login</router-link></p>
           </v-card-text>
