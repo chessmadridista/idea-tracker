@@ -78,7 +78,7 @@ onBeforeMount(() => {
         </v-card-title>
         <v-card-text v-if="journalStore.journals.length > 0">
             <v-list>
-                <v-list-item class="text-pre-wrap bg-green-lighten-5 mt-2 py-4" rounded="lg" v-for="journal in journalStore.journals" @click="editJournal(journal)" :key="journal.id">
+                <v-list-item prepend-icon="mdi-book-outline" class="text-pre-wrap bg-green-lighten-5 mt-2 py-4" rounded="lg" v-for="journal in journalStore.journals" @click="editJournal(journal)" :key="journal.id">
                     {{ journal.description }}
                 </v-list-item>
             </v-list>

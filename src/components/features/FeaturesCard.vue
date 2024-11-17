@@ -77,9 +77,11 @@ onBeforeMount(() => {
             Brainstorm your features
         </v-card-title>
         <v-card-text v-if="featureStore.features.length > 0">
-            <p class="text-pre-wrap bg-blue-lighten-5 rounded-lg mt-2 pa-4" v-for="feature in featureStore.features" :key="feature.id">
-                <v-icon color="secondary">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }}
-            </p>
+            <v-list>
+                <v-list-item prepend-icon="mdi-lightbulb-outline" class="text-pre-wrap bg-blue-lighten-5 mt-2 py-4" rounded="lg" v-for="feature in featureStore.features" @click="editFeature(feature)" :key="feature.id">
+                    {{ feature.description }}
+                </v-list-item>
+            </v-list>
         </v-card-text>
         <v-card-text v-if="newFeatureInputFieldVisibility">
             <v-form ref="form" @submit.prevent="addNewFeature">
