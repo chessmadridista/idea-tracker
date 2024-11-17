@@ -46,23 +46,6 @@ function editFeature(feature) {
     featureStore.showEditFeatureDialog()
 }
 
-function deleteFeature(feature) {
-    const endPoint = '/delete-feature'
-    const ideaId = router.currentRoute.value.params.id
-    const formData = new FormData()
-    formData.append('feature_id', feature.id)
-    formData.append('idea_id', ideaId)
-    axios.post(endPoint, formData)
-    .then(response => {
-        generalStore.setSnackbarMessage(response.data.message)
-        generalStore.setSnackbarColor('success')
-        featureStore.deleteFeature(feature)
-        generalStore.showSnackbar()
-    })
-    .catch(error => {
-    })
-}
-
 function getFeatures() {
     const ideaId = router.currentRoute.value.params.id
     const endPoint = `/get-features?idea_id=${ideaId}`
@@ -98,7 +81,7 @@ onBeforeMount(() => {
                     </v-card-title>
                     <v-card-text v-if="featureStore.features.length > 0">
                         <p class="text-pre-wrap" v-for="feature in featureStore.features" :key="feature.id">
-                            <v-icon color="secondary">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }} <v-icon @click="deleteFeature(feature)" color="error">mdi-delete</v-icon>
+                            <v-icon color="secondary">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }}
                         </p>
                     </v-card-text>
                     <v-card-text v-if="newFeatureInputFieldVisibility">
