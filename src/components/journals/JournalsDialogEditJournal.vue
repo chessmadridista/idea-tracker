@@ -1,35 +1,35 @@
 <script setup>
-import { useGeneralStore, useFeatureStore } from '@/stores'
+import { useGeneralStore, useJournalStore } from '@/stores'
 import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const form = ref(null)
 const generalStore = useGeneralStore()
-const featureStore = useFeatureStore()
+const journalStore = useJournalStore()
 const router = useRouter()
 
-function updateFeature() {
+function updateJournal() {
     form.value.validate().then((response) => {
         if (response.valid) {
-            const endPoint = '/update-feature'
+            const endPoint = '/update-journal'
             const formData = new FormData()
-            formData.append('feature_id', featureStore.editedFeature.id)
-            formData.append('idea_id', featureStore.editedFeature.idea_id)
-            formData.append('feature_description', featureStore.editedFeatureDescription)
+            formData.append('journal_id', journalStore.editedJournal.id)
+            formData.append('idea_id', journalStore.editedJournal.idea_id)
+            formData.append('journal_description', journalStore.editedJournalDescription)
             axios.post(endPoint, formData)
                 .then(response => {
-                    const editedFeature = {
-                        id: featureStore.editedFeature.id,
-                        idea_id: featureStore.editedFeature.idea_id,
-                        description: featureStore.editedFeatureDescription
+                    const editedJournal = {
+                        id: journalStore.editedJournal.id,
+                        idea_id: journalStore.editedJournal.idea_id,
+                        description: journalStore.editedJournalDescription
                     }
-                    featureStore.updateFeature(editedFeature)
-                    featureStore.setEditedFeatureDescription('')
-                    featureStore.setEditedFeature({})
+                    journalStore.updateJournal(editedJournal)
+                    journalStore.setEditedJournalDescription('')
+                    journalStore.setEditedJournal({})
                     generalStore.setSnackbarMessage(response.data.message)
                     generalStore.setSnackbarColor('success')
-                    featureStore.hideEditFeatureDialog()
+                    journalStore.hideEditJournalDialog()
                 })
                 .catch(error => {
                     generalStore.setSnackbarMessage(error)
@@ -44,36 +44,36 @@ function updateFeature() {
     })
 }
 
-function deleteFeature() {
-    const endPoint = '/delete-feature'
+function deleteJournal() {
+    const endPoint = '/delete-journal'
     const ideaId = router.currentRoute.value.params.id
     const formData = new FormData()
-    const featureToBeDeleted = featureStore.editedFeature
-    formData.append('feature_id', featureToBeDeleted.id)
+    const journalToBeDeleted = journalStore.editedJournal
+    formData.append('journal_id', journalToBeDeleted.id)
     formData.append('idea_id', ideaId)
     axios.post(endPoint, formData)
     .then(response => {
         generalStore.setSnackbarMessage(response.data.message)
         generalStore.setSnackbarColor('success')
-        featureStore.deleteFeature(featureToBeDeleted)
+        journalStore.deleteJournal(journalToBeDeleted)
         generalStore.showSnackbar()
-        featureStore.hideEditFeatureDialog()
+        journalStore.hideEditJournalDialog()
     })
     .catch(error => {
     })
 }
 </script>
 <template>
-    <v-dialog v-model="featureStore.editFeatureDialogVisibility">
+    <v-dialog v-model="journalStore.editJournalDialogVisibility">
         <v-card class="pa-4 rounded-xl">
-            <v-card-title class="text-center text-blue-grey-darken-2">Edit this feature</v-card-title>
+            <v-card-title class="text-center text-blue-grey-darken-2">Edit this journal</v-card-title>
             <v-card-text>
-                <v-form ref="form" @submit.prevent="updateFeature">
-                    <v-textarea v-model="featureStore.editedFeatureDescription" label="Describe the feature in detail*" 
+                <v-form ref="form" @submit.prevent="updateJournal">
+                    <v-textarea v-model="journalStore.editedJournalDescription" label="Describe the journal in detail*" 
                         :rules="[v => !!v || 'This field is required.']"    
                     />
                     <div class="d-flex justify-space-between">
-                        <v-btn class="rounded-pill" color="error" prepend-icon="mdi-delete" @click="deleteFeature" >
+                        <v-btn class="rounded-pill" color="error" prepend-icon="mdi-delete" @click="deleteJournal" >
                             Delete
                         </v-btn>
                         <v-btn class="rounded-pill" type="submit" color="#28a745" prepend-icon="mdi-check">

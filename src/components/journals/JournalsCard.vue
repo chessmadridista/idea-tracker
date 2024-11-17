@@ -77,9 +77,11 @@ onBeforeMount(() => {
             Your learnings
         </v-card-title>
         <v-card-text v-if="journalStore.journals.length > 0">
-            <p class="text-pre-wrap" v-for="journal in journalStore.journals" :key="journal.id">
-                <v-icon color="success">mdi-circle</v-icon> <v-icon color="primary" @click="editJournal(journal)">mdi-pencil</v-icon> {{ journal.description }}
-            </p>
+            <v-list>
+                <v-list-item class="text-pre-wrap bg-green-lighten-5 rounded-lg mt-2 py-4" v-for="journal in journalStore.journals" @click="editJournal(journal)" :key="journal.id">
+                    {{ journal.description }}
+                </v-list-item>
+            </v-list>
         </v-card-text>
         <v-card-text v-if="newJournalInputFieldVisibility">
             <v-form ref="form" @submit.prevent="addNewJournal">
