@@ -72,43 +72,37 @@ onBeforeMount(() => {
 })
 </script>
 <template>
-    <v-container>
-        <v-row>
-            <v-col>
-                <v-card class="pa-4 rounded-xl">
-                    <v-card-title class="text-center text-blue-grey-darken-2">
-                        Brainstorm your features
-                    </v-card-title>
-                    <v-card-text v-if="featureStore.features.length > 0">
-                        <p class="text-pre-wrap" v-for="feature in featureStore.features" :key="feature.id">
-                            <v-icon color="secondary">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }}
-                        </p>
-                    </v-card-text>
-                    <v-card-text v-if="newFeatureInputFieldVisibility">
-                        <v-form ref="form" @submit.prevent="addNewFeature">
-                            <v-textarea 
-                                ref="newFeatureTextAreaRef"
-                                color="primary"
-                                label="Describe the feature in detail*"
-                                v-model="newFeature"
-                                :rules="[(v) => !!v || 'This field is required.']"
-                            />
-                            <div class="text-right">
-                                <v-btn class="rounded-pill" type="submit" variant="elevated" color="#28a745" prepend-icon="mdi-check">
-                                    Add this feature
-                                </v-btn>
-                            </div>
-                        </v-form>
-                    </v-card-text>
-                    <v-card-actions v-else class="d-flex justify-end">
-                        <v-btn variant="elevated" color="#007bff" @click="showNewFeatureInputField" prepend-icon="mdi-plus" class="rounded-pill">
-                            Create new feature
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
+    <v-card class="pa-4 rounded-xl">
+        <v-card-title class="text-center text-blue-grey-darken-2">
+            Brainstorm your features
+        </v-card-title>
+        <v-card-text v-if="featureStore.features.length > 0">
+            <p class="text-pre-wrap" v-for="feature in featureStore.features" :key="feature.id">
+                <v-icon color="secondary">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }}
+            </p>
+        </v-card-text>
+        <v-card-text v-if="newFeatureInputFieldVisibility">
+            <v-form ref="form" @submit.prevent="addNewFeature">
+                <v-textarea 
+                    ref="newFeatureTextAreaRef"
+                    color="primary"
+                    label="Describe the feature in detail*"
+                    v-model="newFeature"
+                    :rules="[(v) => !!v || 'This field is required.']"
+                />
+                <div class="text-right">
+                    <v-btn class="rounded-pill" type="submit" variant="elevated" color="#28a745" prepend-icon="mdi-check">
+                        Add this feature
+                    </v-btn>
+                </div>
+            </v-form>
+        </v-card-text>
+        <v-card-actions v-else class="d-flex justify-end">
+            <v-btn variant="elevated" color="#007bff" @click="showNewFeatureInputField" prepend-icon="mdi-plus" class="rounded-pill">
+                Create new feature
+            </v-btn>
+        </v-card-actions>
+    </v-card>
 </template>
 <style scoped>
 .text-pre-wrap {
