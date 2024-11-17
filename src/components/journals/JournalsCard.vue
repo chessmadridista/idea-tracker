@@ -1,35 +1,35 @@
 <script setup>
-import { useFeatureStore, useGeneralStore } from '@/stores';
+import { useJournalStore, useGeneralStore } from '@/stores';
 import { onBeforeMount, inject, ref, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
-const featureStore = useFeatureStore()
+const journalStore = useJournalStore()
 const generalStore = useGeneralStore()
-const newFeatureInputFieldVisibility = ref(false)
+const newJournalInputFieldVisibility = ref(false)
 const router = useRouter()
 const form = ref(null)
-const newFeatureTextAreaRef = ref(null)
-const newFeature = ref('')
+const newJournalTextAreaRef = ref(null)
+const newJournal = ref('')
 
-function addNewFeature() {
+function addNewJournal() {
     form.value.validate().then((response) => {
         if (response.valid) {
             const ideaId = router.currentRoute.value.params.id
-            const endPoint = "/create-feature"
+            const endPoint = "/create-journal"
             const formData = new FormData()
             formData.append('idea_id', ideaId)
-            formData.append('feature_description', newFeature.value)
+            formData.append('journal_description', newJournal.value)
             axios.post(endPoint, formData)
             .then(response => {
-                const feature = {
-                    id: response.data.feature_id,
+                const journal = {
+                    id: response.data.journal_id,
                     idea_id: ideaId,
-                    description: newFeature.value,
+                    description: newJournal.value,
                 }
-                featureStore.addFeature(feature)
-                newFeature.value = ''
-                newFeatureInputFieldVisibility.value = false
+                journalStore.addJournal(journal)
+                newJournal.value = ''
+                newJournalInputFieldVisibility.value = false
                 generalStore.setSnackbarMessage(response.data.message)
                 generalStore.setSnackbarColor('success')
                 generalStore.showSnackbar()
@@ -40,66 +40,66 @@ function addNewFeature() {
     })
 }
 
-function editFeature(feature) {
-    featureStore.setEditedFeatureDescription(feature.description)
-    featureStore.setEditedFeature(feature)
-    featureStore.showEditFeatureDialog()
+function editJournal(journal) {
+    journalStore.setEditedJournalDescription(journal.description)
+    journalStore.setEditedJournal(journal)
+    journalStore.showEditJournalDialog()
 }
 
-function getFeatures() {
+function getJournals() {
     const ideaId = router.currentRoute.value.params.id
-    const endPoint = `/get-features?idea_id=${ideaId}`
+    const endPoint = `/get-journals?idea_id=${ideaId}`
     axios.get(endPoint)
     .then(response => {
-        featureStore.setFeatures(response.data.features)
+        journalStore.setJournals(response.data.journals)
     })
     .catch(error => {
-        featureStore.setFeatures(error.response.data.features)
+        journalStore.setJournals(error.response.data.journals)
     })
 }
 
-function showNewFeatureInputField() {
-    newFeatureInputFieldVisibility.value = true
+function showNewJournalInputField() {
+    newJournalInputFieldVisibility.value = true
     nextTick(() => {
-        if (newFeatureTextAreaRef.value) {
-            newFeatureTextAreaRef.value.focus();
+        if (newJournalTextAreaRef.value) {
+            newJournalTextAreaRef.value.focus();
         }
     })
 }
 
 onBeforeMount(() => {
-    getFeatures()
+    getJournals()
 })
 </script>
 <template>
     <v-card class="pa-4 rounded-xl">
         <v-card-title class="text-center text-blue-grey-darken-2">
-            Brainstorm your features
+            Your journals
         </v-card-title>
-        <v-card-text v-if="featureStore.features.length > 0">
-            <p class="text-pre-wrap" v-for="feature in featureStore.features" :key="feature.id">
-                <v-icon color="success">mdi-circle</v-icon> <v-icon color="primary" @click="editFeature(feature)">mdi-pencil</v-icon> {{ feature.description }}
+        <v-card-text v-if="journalStore.journals.length > 0">
+            <p class="text-pre-wrap" v-for="journal in journalStore.journals" :key="journal.id">
+                <v-icon color="success">mdi-circle</v-icon> <v-icon color="primary" @click="editJournal(journal)">mdi-pencil</v-icon> {{ journal.description }}
             </p>
         </v-card-text>
-        <v-card-text v-if="newFeatureInputFieldVisibility">
-            <v-form ref="form" @submit.prevent="addNewFeature">
+        <v-card-text v-if="newJournalInputFieldVisibility">
+            <v-form ref="form" @submit.prevent="addNewJournal">
                 <v-textarea 
-                    ref="newFeatureTextAreaRef"
+                    ref="newJournalTextAreaRef"
                     color="primary"
-                    label="Describe the feature in detail*"
-                    v-model="newFeature"
+                    label="Describe the journal in detail*"
+                    v-model="newJournal"
                     :rules="[(v) => !!v || 'This field is required.']"
                 />
                 <div class="text-right">
                     <v-btn class="rounded-pill" type="submit" variant="elevated" color="#28a745" prepend-icon="mdi-check">
-                        Add this feature
+                        Add this journal
                     </v-btn>
                 </div>
             </v-form>
         </v-card-text>
         <v-card-actions v-else class="d-flex justify-end">
-            <v-btn variant="elevated" color="#007bff" @click="showNewFeatureInputField" prepend-icon="mdi-plus" class="rounded-pill">
-                Create new feature
+            <v-btn variant="elevated" color="#007bff" @click="showNewJournalInputField" prepend-icon="mdi-plus" class="rounded-pill">
+                Create new journal
             </v-btn>
         </v-card-actions>
     </v-card>
