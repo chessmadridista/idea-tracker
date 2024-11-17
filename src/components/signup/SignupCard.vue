@@ -50,7 +50,7 @@ async function signup() {
     <v-row>
       <v-col>
         <v-card class="pa-4 rounded-xl">
-          <v-card-title class="text-center">Signup</v-card-title>
+          <v-card-title class="text-center text-blue-grey-darken-2">Signup</v-card-title>
           <v-card-text>
             <v-form ref="form" @submit.prevent="signup">
               <v-text-field 
