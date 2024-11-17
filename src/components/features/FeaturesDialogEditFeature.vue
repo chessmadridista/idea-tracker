@@ -52,7 +52,7 @@ function updateFeature() {
                         :rules="[v => !!v || 'This field is required.']"    
                     />
                     <div class="text-right">
-                        <v-btn class="rounded-pill" type="submit" color="primary" prepend-icon="mdi-check">
+                        <v-btn class="rounded-pill" type="submit" color="#28a745" prepend-icon="mdi-check">
                             Update
                         </v-btn>
                     </div>

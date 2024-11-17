@@ -49,7 +49,7 @@ function updateIdea() {
                     />
                     <v-textarea v-model="ideaStore.selectedIdea.description" label="Describe the idea in more detail" />
                     <div class="text-right">
-                        <v-btn type="submit" color="#007bff" prepend-icon="mdi-check" class="rounded-pill">
+                        <v-btn type="submit" color="#28a745" prepend-icon="mdi-check" class="rounded-pill">
                             Update
                         </v-btn>
                     </div>
