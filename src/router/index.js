@@ -5,6 +5,7 @@ import SignupView from '../views/SignupView.vue'
 import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
 import IdeaView from '@/views/IdeaView.vue'
+import AllJournalsView from '@/views/AllJournalsView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -18,6 +19,11 @@ const router = createRouter({
       path: '/idea/:id',
       name: 'idea',
       component: IdeaView
+    },
+    {
+      path: '/journals',
+      name: 'journals',
+      component: AllJournalsView
     },
     {
       path: '/signup',

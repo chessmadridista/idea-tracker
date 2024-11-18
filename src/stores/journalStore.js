@@ -3,12 +3,17 @@ import { defineStore } from 'pinia'
 
 export const useJournalStore = defineStore('journalStore', () => {
     const journals = ref([])
+    const allJournals = ref([])
     const editJournalDialogVisibility = ref(false)
     const editedJournal = ref({})
     const editedJournalDescription = ref('')
 
     function setJournals(newJournals) {
         journals.value = newJournals
+    }
+    
+    function setAllJournals(newJournals) {
+        allJournals.value = newJournals
     }
 
     function addJournal(journal) {
@@ -45,6 +50,8 @@ export const useJournalStore = defineStore('journalStore', () => {
         editJournalDialogVisibility,
         editedJournalDescription,
         editedJournal,
+        allJournals,
+        setAllJournals,
         setJournals,
         addJournal,
         updateJournal,
