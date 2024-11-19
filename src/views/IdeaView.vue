@@ -34,4 +34,5 @@ import NotesDialogEditJournal from '@/components/notes/NotesDialogEditJournal.vu
     </v-container>
     <FeaturesDialogEditFeature />
     <JournalsDialogEditJournal />
+    <NotesDialogEditJournal />
 </template>

@@ -1,35 +1,35 @@
 <script setup>
-import { useGeneralStore, useJournalStore } from '@/stores'
+import { useGeneralStore, useNoteStore } from '@/stores'
 import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router';
 
 const axios = inject('axios')
 const form = ref(null)
 const generalStore = useGeneralStore()
-const journalStore = useJournalStore()
+const noteStore = useNoteStore()
 const router = useRouter()
 
-function updateJournal() {
+function updateNote() {
     form.value.validate().then((response) => {
         if (response.valid) {
-            const endPoint = '/update-journal'
+            const endPoint = '/update-note'
             const formData = new FormData()
-            formData.append('journal_id', journalStore.editedJournal.id)
-            formData.append('idea_id', journalStore.editedJournal.idea_id)
-            formData.append('journal_description', journalStore.editedJournalDescription)
+            formData.append('note_id', noteStore.editedNote.id)
+            formData.append('idea_id', noteStore.editedNote.idea_id)
+            formData.append('note_description', noteStore.editedNoteDescription)
             axios.post(endPoint, formData)
                 .then(response => {
-                    const editedJournal = {
-                        id: journalStore.editedJournal.id,
-                        idea_id: journalStore.editedJournal.idea_id,
-                        description: journalStore.editedJournalDescription
+                    const editedNote = {
+                        id: noteStore.editedNote.id,
+                        idea_id: noteStore.editedNote.idea_id,
+                        description: noteStore.editedNoteDescription
                     }
-                    journalStore.updateJournal(editedJournal)
-                    journalStore.setEditedJournalDescription('')
-                    journalStore.setEditedJournal({})
+                    noteStore.updateNote(editedNote)
+                    noteStore.setEditedNoteDescription('')
+                    noteStore.setEditedNote({})
                     generalStore.setSnackbarMessage(response.data.message)
                     generalStore.setSnackbarColor('success')
-                    journalStore.hideEditJournalDialog()
+                    noteStore.hideEditNoteDialog()
                 })
                 .catch(error => {
                     generalStore.setSnackbarMessage(error)
@@ -44,36 +44,36 @@ function updateJournal() {
     })
 }
 
-function deleteJournal() {
-    const endPoint = '/delete-journal'
+function deleteNote() {
+    const endPoint = '/delete-note'
     const ideaId = router.currentRoute.value.params.id
     const formData = new FormData()
-    const journalToBeDeleted = journalStore.editedJournal
-    formData.append('journal_id', journalToBeDeleted.id)
+    const noteToBeDeleted = noteStore.editedNote
+    formData.append('note_id', noteToBeDeleted.id)
     formData.append('idea_id', ideaId)
     axios.post(endPoint, formData)
     .then(response => {
         generalStore.setSnackbarMessage(response.data.message)
         generalStore.setSnackbarColor('success')
-        journalStore.deleteJournal(journalToBeDeleted)
+        noteStore.deleteNote(noteToBeDeleted)
         generalStore.showSnackbar()
-        journalStore.hideEditJournalDialog()
+        noteStore.hideEditNoteDialog()
     })
     .catch(error => {
     })
 }
 </script>
 <template>
-    <v-dialog v-model="journalStore.editJournalDialogVisibility">
+    <v-dialog v-model="noteStore.editNoteDialogVisibility">
         <v-card class="pa-4 rounded-xl">
-            <v-card-title class="text-center text-blue-grey-darken-2">Edit this journal</v-card-title>
+            <v-card-title class="text-center text-blue-grey-darken-2">Edit this note</v-card-title>
             <v-card-text>
-                <v-form ref="form" @submit.prevent="updateJournal">
-                    <v-textarea v-model="journalStore.editedJournalDescription" label="Describe the journal in detail*" 
+                <v-form ref="form" @submit.prevent="updateNote">
+                    <v-textarea v-model="noteStore.editedNoteDescription" label="Describe the note in detail*" 
                         :rules="[v => !!v || 'This field is required.']"    
                     />
                     <div class="d-flex justify-space-between">
-                        <v-btn class="rounded-pill" color="error" prepend-icon="mdi-delete" @click="deleteJournal" >
+                        <v-btn class="rounded-pill" color="error" prepend-icon="mdi-delete" @click="deleteNote" >
                             Delete
                         </v-btn>
                         <v-btn class="rounded-pill" type="submit" color="#28a745" prepend-icon="mdi-check">
